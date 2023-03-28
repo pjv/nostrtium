@@ -41,3 +41,4 @@ bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
 * Generate keys on the settings page
 * NIP-07 signing
 * Long-form Nostr posting
+* Automated Nostr posting on WP publish

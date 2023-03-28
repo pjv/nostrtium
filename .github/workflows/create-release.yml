@@ -30,14 +30,9 @@ jobs:
         uses: montudor/action-zip@v0.1.0
         with:
           args: zip -X -r build/wp-nostr.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md README.md *.dist composer.* build**
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-            name: graphql-api
-            path: build/wp-nostr.zip
       - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
+        uses: svenstaro/upload-release-action@v2
         with:
-          args: build/wp-nostr.zip application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/wp-nostr.zip
+          asset_name: wp-nostr.zip

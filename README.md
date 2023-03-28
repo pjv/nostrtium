@@ -30,3 +30,8 @@ This repository does not include the required vendor directory, so you cannot ju
 2. Then visit the post editor page for an existing post and at or near the bottom you should see the WP Nostr metabox which is pre-populated with the excerpt and permalink for the post:
 
 ![Settings Page](.wordpress-org/screenshot-2.png)
+
+## Support
+Want to support development of WP Nostr? Here's a bitcoin address to send to:
+
+bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g

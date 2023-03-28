@@ -22,6 +22,7 @@ package.json
 package-lock.json
 phpunit.xml
 phpunit.xml.dist
+makefile
 multisite.xml
 multisite.xml.dist
 phpcs.ruleset.xml

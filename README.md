@@ -38,7 +38,7 @@ bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
 
 ## TODO
 * Separate private keys for individual WP users
-* Generate keys on the settings page
+* Generate keys on the settings page and/or user profile page
 * NIP-07 signing
 * Long-form Nostr posting
 * Automated Nostr posting on WP publish

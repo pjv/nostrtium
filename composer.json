@@ -1,0 +1,12 @@
+{
+    "name": "pjv/wp-nostr",
+    "description": "Post to nostr from WordPress",
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/pjv/nostr-php"
+    }],
+    "require": {
+        "paragonie/halite": "^5",
+        "swentel/nostr-php": "dev-bugfix"
+    }
+}

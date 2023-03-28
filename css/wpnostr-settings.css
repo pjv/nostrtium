@@ -1,0 +1,16 @@
+.postbox .inside h2, .wrap [class$=icon32]+h2, .wrap h1, .wrap>h2:first-child {
+  font-size: revert;
+  font-weight: revert;
+  margin: revert;
+  padding: revert;
+  line-height: revert;
+}
+
+.delete-relay:hover{
+  cursor: pointer;
+}
+
+.ui.toast-container.top.right{
+  top: 3em;
+}
+  

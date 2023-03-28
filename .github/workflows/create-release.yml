@@ -1,0 +1,43 @@
+# GitHub Action: whenever creating a new release of the source code,
+# also create a release of the installable plugin.
+# Steps to execute:
+# - Checkout the source code
+# - Run "composer install" to download all dependencies under vendor/
+# - Create a .zip file, excluding:
+#   - All hidden files (.git, .gitignore, etc)
+#   - All development files, ending in .dist
+#   - All composer files <= after installing dependencies, no need for them anymore
+#   - Markdown files concerning development
+#   - Folder build/ <= created only to store the .zip file
+# - Upload the .zip file as an artifact to the action (this step is possibly optional)
+# - Upload the .zip file as a release, for download
+name: Generate Installable Plugin, and Upload as Release Asset
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build project
+        run: |
+          composer install --no-dev --optimize-autoloader
+          mkdir build
+      - name: Create artifact
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -X -r build/wp-nostr.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md README.md *.dist composer.* build**
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+            name: graphql-api
+            path: build/wp-nostr.zip
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: build/wp-nostr.zip application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -22,3 +22,11 @@ If you want to use the plugin, download the latest zip release from the [release
 
 This repository does not include the required vendor directory, so you cannot just clone this repo and use it as-is. If you want to code on it, you can clone it and do `composer install`.
 
+## How to Use
+1. After installing and activating the plugin, go into Settings -> WP Nostr and copy/paste the private key (nsec1...) that you want to post from and tweak the relays to your liking.
+
+![Settings Page](.wordpress-org/screenshot-1.png)
+
+2. Then visit the post editor page for an existing post and at or near the bottom you should see the WP Nostr metabox which is pre-populated with the excerpt and permalink for the post:
+
+![Settings Page](.wordpress-org/screenshot-2.png)

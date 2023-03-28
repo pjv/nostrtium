@@ -11,6 +11,8 @@
 .travis.yml
 .DS_Store
 .vscode
+keyfile.key
+build
 Thumbs.db
 behat.yml
 bin

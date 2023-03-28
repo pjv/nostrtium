@@ -35,3 +35,9 @@ This repository does not include the required vendor directory, so you cannot ju
 Want to support development of WP Nostr? Here's a bitcoin address to send to:
 
 bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
+
+## TODO
+* Separate private keys for individual WP users
+* Generate keys on the settings page
+* NIP-07 signing
+* Long-form Nostr posting

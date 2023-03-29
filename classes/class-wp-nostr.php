@@ -42,6 +42,8 @@ class WP_Nostr {
   public function enqueue($page) {
     global $pagenow;
     if (($pagenow == 'post.php') && (get_post_type() == 'post')) {
+      wp_enqueue_style('modal-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', [], PJV_WPNOSTR_VERSION);
+      wp_enqueue_script('modal-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', ['jquery'], PJV_WPNOSTR_VERSION);
       wp_enqueue_style('wpnostr-metabox.css', plugins_url('../css/wpnostr-metabox.css', __FILE__), [], PJV_WPNOSTR_VERSION);
       wp_register_script('wpnostr-metabox.js', plugins_url('../js/wpnostr-metabox.js', __FILE__), [], PJV_WPNOSTR_VERSION);
       $post_ID = isset($_GET['post']) ? $_GET['post'] : 0;
@@ -161,14 +163,12 @@ class WP_Nostr {
     $sent = false;
     foreach ($this->settings->relays as $url) {
       $log .= "Sending to $url | ";
-
       $relay = new Relay($url, $eventMessage);
 
       try {
         $result = $relay->send();
       } catch (Exception $exception) {
         $log .= '<span class="failure">' . $exception->getMessage() . '</span><br />';
-
         continue;
       }
 

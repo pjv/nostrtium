@@ -8,14 +8,9 @@
 <button id="wpnostr-post" class="ui button" style="margin-top:15px">Post to Nostr</button>
 <?php endif; ?>
 
-<div class="modal-overlay closed" id="modal-overlay"></div>
-
-<div class="modal closed" id="modal">
-  <button class="close-button closed" id="close-button">Done</button>
-  <div class="modal-guts closed">
-    <h1>Posting to Nostr - Please wait.</h1>
-    <p id="nostr-log"></p>
-  </div>
+<div class="modal">
+  <h2>Posting to Nostr</h2>
+  <p class="" id="nostr-log">Please wait...</p>
 </div>
 
 <?php

@@ -120,15 +120,16 @@ class WP_Nostr {
       $relays = [
         'wss://relay.damus.io',
         'wss://nostr-pub.wellorder.net',
+        'wss://relay.wellorder.net',
         'wss://nos.lol',
         'wss://nostr.mom',
-        'wss://nostr.wine',
         'wss://no.str.cr',
         'wss://relay.snort.social',
-        'wss://puravida.nostr.land',
-        'wss://atlas.nostr.land',
-        'wss://eden.nostr.land',
         'wss://nostr.milou.lol',
+        'wss://nostr.bitcoiner.social',
+        'wss://relay.nostrid.com',
+        'wss://relay.nostrcheck.me',
+        'wss://relayable.org',
       ];
       update_option('wpnostr-relays', $relays);
     }

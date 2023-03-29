@@ -92,7 +92,12 @@ class WP_Nostr {
       wp_send_json_error('Something went wrong; did not receive any note text.');
     }
 
-    $note = str_replace("\'", '’', $note);
+    // unescape ajaxified note text
+    $note = strtr($note, [
+      "\'" => "'",
+      '\"' => '"',
+      "\\\\" => "\\",
+    ]);
 
     $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
 

@@ -31,6 +31,15 @@ This repository does not include the required vendor directory, so you cannot ju
 
 ![Settings Page](.wordpress-org/screenshot-2.png)
 
+### User Role / Capability Filter
+You can create a filter snippet (in functions.php) to choose what user role or capability has access to WP Nostr functionality. The default is `edit_posts`. Here is a sample snippet that would change it so only adminstrators can see / use the plugin's functionality:
+
+````
+add_filter ('wpnostr_role', function($role){
+	return 'administrator';
+});
+````
+
 ## Support
 Want to support development of WP Nostr? Here's a bitcoin address to send to:
 

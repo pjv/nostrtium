@@ -14,6 +14,7 @@ Please test and report issues here.
 ## Requirements
 Some of the included libraries have relatively recent dependency requirements so you will need the following in your WordPress platform:
 * PHP 8.1+
+* php-gmp module must be installed [Installation on Ubuntu](https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/)
 * WordPress 6.0+
 * Writable installation directory (on activation, the plugin writes a cryptographic keyfile to its own install directory)
 

@@ -34,21 +34,4 @@ abstract class PJV_WPNostr_Meta_Box {
     include PJV_WPNOSTR_DIR . 'views/metabox.php';
   }
 
-
-
-
-  /**
-   * Save the meta box selections.
-   *
-   * @param int $post_id  The post ID.
-   */
-  // public static function save(int $post_id) {
-  //   if (array_key_exists('wporg_field', $_POST)) {
-  //     update_post_meta(
-  //       $post_id,
-  //       '_wporg_meta_key',
-  //       $_POST['wporg_field']
-  //     );
-  //   }
-  // }
 }

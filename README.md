@@ -52,3 +52,5 @@ bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
 * NIP-07 signing
 * Long-form Nostr posting
 * Automated Nostr posting on WP publish
+* Relay sets
+* Nostr profile editing

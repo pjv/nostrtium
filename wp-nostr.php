@@ -8,7 +8,7 @@
  * Author URI:      https://github.com/pjv
  * Text Domain:     wp-nostr
  * Domain Path:     /languages
- * Version:         0.5.1
+ * Version:         0.5.2
  *
  * @package         WP_Nostr
  */
@@ -17,7 +17,7 @@ if (!defined('WPINC')) {
   exit;
 }
 
-define('PJV_WPNOSTR_VERSION', '0.5.1');
+define('PJV_WPNOSTR_VERSION', '0.5.2');
 define('PJV_WPNOSTR_DIR', plugin_dir_path(__FILE__));
 define('PJV_WPNOSTR_DEFAULT_USER_ROLE', 'edit_posts');
 

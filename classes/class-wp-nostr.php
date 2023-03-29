@@ -13,9 +13,9 @@ use swentel\nostr\Sign\Sign;
 
 class WP_Nostr {
   private static $instance = null;
-  public $version = '';
-  private $settings = null;
-  public $keyfile = '';
+  public  $version         = '';
+  private $settings        = null;
+  public  $keyfile         = '';
 
   // singleton
   public static function get_instance() {
@@ -29,9 +29,9 @@ class WP_Nostr {
   private function __construct() {
     require_once PJV_WPNOSTR_DIR . 'classes/class-wp-nostr-metabox.php';
     require_once PJV_WPNOSTR_DIR . 'classes/class-wp-nostr-settings.php';
-    $this->version = PJV_WPNOSTR_VERSION;
+    $this->version  = PJV_WPNOSTR_VERSION;
     $this->settings = WP_Nostr_Settings::get_instance();
-    $this->keyfile = PJV_WPNOSTR_DIR . 'keyfile.key';
+    $this->keyfile  = PJV_WPNOSTR_DIR . 'keyfile.key';
 
     if (is_admin()) {
       add_action('admin_enqueue_scripts', [$this, 'enqueue']);
@@ -47,9 +47,9 @@ class WP_Nostr {
       $post_ID = isset($_GET['post']) ? $_GET['post'] : 0;
       $post = get_post($post_ID);
       $local_arr = [
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'security' => wp_create_nonce('wpnostr-ajax-nonce'),
-        'post_id' => $post_ID,
+        'ajaxurl'        => admin_url('admin-ajax.php'),
+        'security'       => wp_create_nonce('wpnostr-ajax-nonce'),
+        'post_id'        => $post_ID,
         'wpnostr_posted' => $post->_wpnostr_posted,
       ];
       wp_localize_script('wpnostr-metabox.js', 'wpnostr', $local_arr);
@@ -66,9 +66,9 @@ class WP_Nostr {
         $private_key_set = false;
       }
       $local_arr = [
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'security' => wp_create_nonce('wpnostr-ajax-nonce'),
-        'relays' => $this->settings->relays,
+        'ajaxurl'         => admin_url('admin-ajax.php'),
+        'security'        => wp_create_nonce('wpnostr-ajax-nonce'),
+        'relays'          => $this->settings->relays,
         'private_key_set' => $private_key_set,
       ];
       wp_localize_script('wpnostr-settings.js', 'wpnostr', $local_arr);
@@ -139,7 +139,7 @@ class WP_Nostr {
   }
 
   public function check_user() {
-    if (!current_user_can('edit_posts')) {
+    if (!current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
       wp_die('Invalid permissions');
     }
   }
@@ -174,9 +174,9 @@ class WP_Nostr {
       }
     }
 
-    $r = new stdClass;
+    $r       = new stdClass;
     $r->sent = $sent;
-    $r->log = $log;
+    $r->log  = $log;
 
     return $r;
   }

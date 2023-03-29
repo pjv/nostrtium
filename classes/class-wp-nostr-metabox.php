@@ -12,14 +12,16 @@ abstract class PJV_WPNostr_Meta_Box {
    * Set up and add the meta box.
    */
   public static function add() {
-    $screens = ['post'];
-    foreach ($screens as $screen) {
-      add_meta_box(
-        'pjv_wpnostr_box',
-        'Post to Nostr',
-        [self::class, 'box_html'],
-        $screen
-      );
+    if (current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
+      $screens = ['post'];
+      foreach ($screens as $screen) {
+        add_meta_box(
+          'pjv_wpnostr_box',
+          'Post to Nostr',
+          [self::class, 'box_html'],
+          $screen
+        );
+      }
     }
   }
 

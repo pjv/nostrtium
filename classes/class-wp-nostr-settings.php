@@ -47,7 +47,7 @@ class WP_Nostr_Settings {
     add_options_page(
       $this->title,
       $this->title,
-      'manage_options',
+      apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE),
       $this->slug,
       [$this, 'render_settings_page']
     );
@@ -61,12 +61,7 @@ class WP_Nostr_Settings {
   }
 
   public function render_settings_page() {
-    ?>
-    <div class="wrap ">
-
-      <?php include PJV_WPNOSTR_DIR . 'views/settings-page.php'; ?>
-
-    <?php
+    include PJV_WPNOSTR_DIR . 'views/settings-page.php';
   }
 
   public function save_private_key() {
@@ -113,7 +108,7 @@ class WP_Nostr_Settings {
   }
 
   public function check_user() {
-    if (!current_user_can('edit_posts')) {
+    if (!current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
       wp_die('Invalid permissions');
     }
   }

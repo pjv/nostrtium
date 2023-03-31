@@ -2,22 +2,22 @@
   "use strict";
   // execute when the DOM is ready
   $(document).ready(function () {
-    $("#wpnostr-post").on("click", function (e) {
+    $("#nostrtium-post").on("click", function (e) {
       e.preventDefault();
       $(this).html("posting...");
       $(".modal").modal({
         fadeDuration: 250,
       });
 
-      var note = $("#wpnostr-note").val();
+      var note = $("#nostrtium-note").val();
       var data = {
-        action: "pjv_wpn_post_note",
+        action: "pjv_nostrtium_post_note",
         note: note,
-        post_id: wpnostr.post_id,
-        security: wpnostr.security,
+        post_id: nostrtium.post_id,
+        security: nostrtium.security,
       };
-      $.post(wpnostr.ajaxurl, data, function (response) {
-        var button = $("#wpnostr-post");
+      $.post(nostrtium.ajaxurl, data, function (response) {
+        var button = $("#nostrtium-post");
         if (response.success) {
           button.html("POSTED");
           button.prop("disabled", true);
@@ -31,4 +31,4 @@
       });
     });
   });
-}(jQuery, window, document));
+})(jQuery, window, document);

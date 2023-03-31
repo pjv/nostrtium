@@ -1,5 +1,5 @@
 <div class="wrap ">
-  <h1 class="ui header">WP Nostr Settings</h1>
+  <h1 class="ui header">Nostrtium Settings</h1>
 
   <div class="ui form">
     <div class="ten wide field">
@@ -9,16 +9,15 @@
         </div>
 
         <?php if ($this->encrypted_privkey != '') : ?>
-        <input type="password" id="private-key" name="private-key" placeholder="nsec1..."
-          value="Encrypted private key stored 101010101010101010101010101010101010">
-        <button id="save-private-key" type="button" class="ui icon green button">
-          <i class="check icon"></i>
-        </button>
+          <input type="password" id="private-key" name="private-key" placeholder="nsec1..." value="Encrypted private key stored 101010101010101010101010101010101010">
+          <button id="save-private-key" type="button" class="ui icon green button">
+            <i class="check icon"></i>
+          </button>
         <?php else : ?>
-        <input type="password" id="private-key" name="private-key" placeholder="nsec1...">
-        <button id="save-private-key" type="button" class="ui icon violet button">
-          <i class="save icon"></i>
-        </button>
+          <input type="password" id="private-key" name="private-key" placeholder="nsec1...">
+          <button id="save-private-key" type="button" class="ui icon violet button">
+            <i class="save icon"></i>
+          </button>
         <?php endif; ?>
 
       </div>

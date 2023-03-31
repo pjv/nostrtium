@@ -9,10 +9,10 @@ use ParagonIE\Halite\Symmetric\Crypto as Symmetric;
 use ParagonIE\HiddenString\HiddenString;
 use swentel\nostr\Key\Key;
 
-class WP_Nostr_Settings {
+class Nostrtium_Settings {
   private static $instance = null;
-  private $title = 'WP Nostr';
-  private $slug = 'wp-nostr';
+  private $title = 'Nostrtium';
+  private $slug = 'nostrtium';
   public $relays = [];
   public $encrypted_privkey = '';
   public $keyfile = '';
@@ -31,8 +31,8 @@ class WP_Nostr_Settings {
 
     if (is_admin()) {
       add_action('admin_menu', [$this, 'setup_menu']);
-      add_action('wp_ajax_pjv_wpn_save_relays', [$this, 'save_relays']);
-      add_action('wp_ajax_pjv_wpn_save_private_key', [$this, 'save_private_key']);
+      add_action('wp_ajax_pjv_nostrtium_save_relays', [$this, 'save_relays']);
+      add_action('wp_ajax_pjv_nostrtium_save_private_key', [$this, 'save_private_key']);
 
       if ($pagenow == 'plugins.php') {
         add_filter("plugin_action_links_$this->slug/$this->slug.php", [$this, 'settings_link']);
@@ -40,14 +40,14 @@ class WP_Nostr_Settings {
     }
     $this->relays = $this->get_relays();
     $this->encrypted_privkey = $this->get_encrypted_key();
-    $this->keyfile = PJV_WPNOSTR_DIR . 'keyfile.key';
+    $this->keyfile = PJV_NOSTRTIUM_DIR . 'keyfile.key';
   }
 
   public function setup_menu() {
     add_options_page(
       $this->title,
       $this->title,
-      apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE),
+      apply_filters('nostrtium_role', PJV_NOSTRTIUM_DEFAULT_USER_ROLE),
       $this->slug,
       [$this, 'render_settings_page']
     );
@@ -61,11 +61,11 @@ class WP_Nostr_Settings {
   }
 
   public function render_settings_page() {
-    include PJV_WPNOSTR_DIR . 'views/settings-page.php';
+    include PJV_NOSTRTIUM_DIR . 'views/settings-page.php';
   }
 
   public function save_private_key() {
-    check_ajax_referer('wpnostr-ajax-nonce', 'security');
+    check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
     $nsec = isset($_POST['nsec']) ? $_POST['nsec'] : null;
@@ -92,29 +92,29 @@ class WP_Nostr_Settings {
   }
 
   private function set_relays(array $relays = []) {
-    update_option('wpnostr-relays', $relays);
+    update_option('nostrtium-relays', $relays);
   }
 
   private function get_relays() {
-    return get_option('wpnostr-relays');
+    return get_option('nostrtium-relays');
   }
 
   private function set_encrypted_key(string $enc = '') {
-    update_option('wpnostr-enc-privkey', $enc);
+    update_option('nostrtium-enc-privkey', $enc);
   }
 
   private function get_encrypted_key() {
-    return get_option('wpnostr-enc-privkey');
+    return get_option('nostrtium-enc-privkey');
   }
 
   public function check_user() {
-    if (!current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
+    if (!current_user_can(apply_filters('nostrtium_role', PJV_NOSTRTIUM_DEFAULT_USER_ROLE))) {
       wp_die('Invalid permissions');
     }
   }
 
   public function save_relays() {
-    check_ajax_referer('wpnostr-ajax-nonce', 'security');
+    check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
     $relays = isset($_POST['relays']) ? $_POST['relays'] : null;
@@ -126,4 +126,4 @@ class WP_Nostr_Settings {
     wp_send_json_success();
   }
 }
-WP_Nostr_Settings::get_instance();
+Nostrtium_Settings::get_instance();

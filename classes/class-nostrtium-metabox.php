@@ -4,19 +4,18 @@ if (!defined('WPINC')) {
   exit;
 }
 
-add_action('add_meta_boxes', ['PJV_WPNostr_Meta_Box', 'add']);
-// add_action('save_post', ['WPOrg_Meta_Box', 'save']);
+add_action('add_meta_boxes', ['PJV_Nostrtium_Meta_Box', 'add']);
 
-abstract class PJV_WPNostr_Meta_Box {
+abstract class PJV_Nostrtium_Meta_Box {
   /**
    * Set up and add the meta box.
    */
   public static function add() {
-    if (current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
+    if (current_user_can(apply_filters('nostrtium_role', PJV_NOSTRTIUM_DEFAULT_USER_ROLE))) {
       $screens = ['post'];
       foreach ($screens as $screen) {
         add_meta_box(
-          'pjv_wpnostr_box',
+          'pjv_nostrtium_box',
           'Post to Nostr',
           [self::class, 'box_html'],
           $screen
@@ -31,7 +30,6 @@ abstract class PJV_WPNostr_Meta_Box {
    * @param WP_Post $post   Post object.
    */
   public static function box_html($post) {
-    include PJV_WPNOSTR_DIR . 'views/metabox.php';
+    include PJV_NOSTRTIUM_DIR . 'views/metabox.php';
   }
-
 }

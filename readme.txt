@@ -1,6 +1,6 @@
-=== WP Nostr ===
+=== Nostrtium ===
 Contributors: pjv
-Donate link: https://github.com/pjv/wp-nostr
+Donate link: https://github.com/pjv/nostrtium
 Tags: social media, nostr
 Requires at least: 6.0
 Requires PHP: 8.1
@@ -13,7 +13,7 @@ Post to Nostr from WordPress.
 
 == Description ==
 
-WP Nostr lets you post from WordPress to Nostr.
+Nostrtium lets you post from WordPress to Nostr.
 
 This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays.
 
@@ -29,14 +29,14 @@ Some of the included libraries have relatively recent dependency requirements so
 * Writable installation directory (on activation, the plugin writes a cryptographic keyfile to its own install directory)
 
 ### How to Use
-1. After installing and activating the plugin, go into Settings -> WP Nostr and copy/paste the private key (nsec1...) that you want to post from and tweak the relays to your liking.
-2. Then visit the post editor page for an existing post and at or near the bottom you should see the WP Nostr metabox which is pre-populated with the excerpt and permalink for the post (you can change the content in the metabox as you like before posting):
+1. After installing and activating the plugin, go into Settings -> Nostrtium and copy/paste the private key (nsec1...) that you want to post from and tweak the relays to your liking.
+2. Then visit the post editor page for an existing post and at or near the bottom you should see the Nostrtium metabox which is pre-populated with the excerpt and permalink for the post (you can change the content in the metabox as you like before posting):
 
 ### User Role / Capability Filter
-You can create a filter snippet (in your theme's functions.php) to choose what user role or capability has access to WP Nostr functionality. The default is `edit_posts`. Here is a sample snippet that would change it so only adminstrators can see / use the plugin's functionality:
+You can create a filter snippet (in your theme's functions.php) to choose what user role or capability has access to Nostrtium functionality. The default is `edit_posts`. Here is a sample snippet that would change it so only adminstrators can see / use the plugin's functionality:
 
 ````
-add_filter ('wpnostr_role', function($role){
+add_filter ('nostrtium_role', function($role){
 	return 'administrator';
 });
 ````
@@ -45,9 +45,9 @@ add_filter ('wpnostr_role', function($role){
 
 = Automatic installation =
 
-Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of WP Nostr, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
+Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of Nostrtium, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
 
-In the search field type “WP Nostr” and click Search Plugins. Once you’ve found the plugin you can view details about it such as the point release, rating and description. Install it by simply clicking “Install Now”.
+In the search field type “Nostrtium” and click Search Plugins. Once you’ve found the plugin you can view details about it such as the point release, rating and description. Install it by simply clicking “Install Now”.
 
 = Manual installation =
 

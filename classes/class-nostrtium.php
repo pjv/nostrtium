@@ -11,7 +11,7 @@ use swentel\nostr\Message\EventMessage;
 use swentel\nostr\Relay\Relay;
 use swentel\nostr\Sign\Sign;
 
-class WP_Nostr {
+class Nostrtium {
   private static $instance = null;
   public  $version         = '';
   private $settings        = null;
@@ -27,66 +27,66 @@ class WP_Nostr {
   } // end get_instance;
 
   private function __construct() {
-    require_once PJV_WPNOSTR_DIR . 'classes/class-wp-nostr-metabox.php';
-    require_once PJV_WPNOSTR_DIR . 'classes/class-wp-nostr-settings.php';
-    $this->version  = PJV_WPNOSTR_VERSION;
-    $this->settings = WP_Nostr_Settings::get_instance();
-    $this->keyfile  = PJV_WPNOSTR_DIR . 'keyfile.key';
+    require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-metabox.php';
+    require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-settings.php';
+    $this->version  = PJV_NOSTRTIUM_VERSION;
+    $this->settings = Nostrtium_Settings::get_instance();
+    $this->keyfile  = PJV_NOSTRTIUM_DIR . 'keyfile.key';
 
     if (is_admin()) {
       add_action('admin_enqueue_scripts', [$this, 'enqueue']);
-      add_action('wp_ajax_pjv_wpn_post_note', [$this, 'post_note']);
+      add_action('wp_ajax_pjv_nostrtium_post_note', [$this, 'post_note']);
     }
   }
 
   public function enqueue($page) {
     global $pagenow;
     if (($pagenow == 'post.php') && (get_post_type() == 'post')) {
-      wp_enqueue_style('modal-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', [], PJV_WPNOSTR_VERSION);
-      wp_enqueue_script('modal-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', ['jquery'], PJV_WPNOSTR_VERSION);
-      wp_enqueue_style('wpnostr-metabox.css', plugins_url('../css/wpnostr-metabox.css', __FILE__), [], PJV_WPNOSTR_VERSION);
-      wp_register_script('wpnostr-metabox.js', plugins_url('../js/wpnostr-metabox.js', __FILE__), [], PJV_WPNOSTR_VERSION);
+      wp_enqueue_style('modal-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', [], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_script('modal-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', ['jquery'], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_style('nostrtium-metabox.css', plugins_url('../css/nostrtium-metabox.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
+      wp_register_script('nostrtium-metabox.js', plugins_url('../js/nostrtium-metabox.js', __FILE__), [], PJV_NOSTRTIUM_VERSION);
       $post_ID = isset($_GET['post']) ? $_GET['post'] : 0;
       $post = get_post($post_ID);
       $local_arr = [
         'ajaxurl'        => admin_url('admin-ajax.php'),
-        'security'       => wp_create_nonce('wpnostr-ajax-nonce'),
+        'security'       => wp_create_nonce('nostrtium-ajax-nonce'),
         'post_id'        => $post_ID,
-        'wpnostr_posted' => $post->_wpnostr_posted,
+        'nostrtium_posted' => $post->_nostrtium_posted,
       ];
-      wp_localize_script('wpnostr-metabox.js', 'wpnostr', $local_arr);
-      wp_enqueue_script('wpnostr-metabox.js');
+      wp_localize_script('nostrtium-metabox.js', 'nostrtium', $local_arr);
+      wp_enqueue_script('nostrtium-metabox.js');
     }
-    if (($pagenow == 'options-general.php' && $_GET['page'] == 'wp-nostr')) {
-      wp_enqueue_style('fomantic-css', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css', [], PJV_WPNOSTR_VERSION);
-      wp_enqueue_script('fomantic-js', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js', ['jquery'], PJV_WPNOSTR_VERSION);
-      wp_enqueue_style('wpnostr-settings.css', plugins_url('../css/wpnostr-settings.css', __FILE__), [], PJV_WPNOSTR_VERSION);
-      wp_register_script('wpnostr-settings.js', plugins_url('../js/wpnostr-settings.js', __FILE__), [], PJV_WPNOSTR_VERSION);
-      if (get_option('wpnostr-enc-privkey')) {
+    if (($pagenow == 'options-general.php' && $_GET['page'] == 'nostrtium')) {
+      wp_enqueue_style('fomantic-css', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css', [], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_script('fomantic-js', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js', ['jquery'], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_style('nostrtium-settings.css', plugins_url('../css/nostrtium-settings.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
+      wp_register_script('nostrtium-settings.js', plugins_url('../js/nostrtium-settings.js', __FILE__), [], PJV_NOSTRTIUM_VERSION);
+      if (get_option('nostrtium-enc-privkey')) {
         $private_key_set = true;
       } else {
         $private_key_set = false;
       }
       $local_arr = [
         'ajaxurl'         => admin_url('admin-ajax.php'),
-        'security'        => wp_create_nonce('wpnostr-ajax-nonce'),
+        'security'        => wp_create_nonce('nostrtium-ajax-nonce'),
         'relays'          => $this->settings->relays,
         'private_key_set' => $private_key_set,
       ];
-      wp_localize_script('wpnostr-settings.js', 'wpnostr', $local_arr);
-      wp_enqueue_script('wpnostr-settings.js');
+      wp_localize_script('nostrtium-settings.js', 'nostrtium', $local_arr);
+      wp_enqueue_script('nostrtium-settings.js');
     }
   }
 
   public function post_note() {
-    check_ajax_referer('wpnostr-ajax-nonce', 'security');
+    check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
-    if (!get_option('wpnostr-enc-privkey')) {
-      wp_send_json_error('You must enter your Nostr private key before you can post. Visit Settings -> WP Nostr.');
+    if (!get_option('nostrtium-enc-privkey')) {
+      wp_send_json_error('You must enter your Nostr private key before you can post. Visit Settings -> Nostrtium.');
     }
     if (count($this->settings->relays) == 0) {
-      wp_send_json_error('You have no relays defined to send to - visit Settings -> WP Nostr.');
+      wp_send_json_error('You have no relays defined to send to - visit Settings -> Nostrtium.');
     }
 
     $note = isset($_POST['note']) ? $_POST['note'] : null;
@@ -107,7 +107,7 @@ class WP_Nostr {
 
     if ($result->sent) {
       if ($post_id > 0) {
-        update_post_meta($post_id, '_wpnostr_posted', true);
+        update_post_meta($post_id, '_nostrtium_posted', true);
       }
       wp_send_json_success($result->log);
     } else {
@@ -123,7 +123,7 @@ class WP_Nostr {
     }
 
     // initial seed relays
-    if (!get_option('wpnostr-relays')) {
+    if (!get_option('nostrtium-relays')) {
       $relays = [
         'wss://relay.damus.io',
         'wss://nostr-pub.wellorder.net',
@@ -138,7 +138,7 @@ class WP_Nostr {
         'wss://relay.nostrcheck.me',
         'wss://relayable.org',
       ];
-      update_option('wpnostr-relays', $relays);
+      update_option('nostrtium-relays', $relays);
     }
   }
 
@@ -147,7 +147,7 @@ class WP_Nostr {
   }
 
   public function check_user() {
-    if (!current_user_can(apply_filters('wpnostr_role', PJV_WPNOSTR_DEFAULT_USER_ROLE))) {
+    if (!current_user_can(apply_filters('nostrtium_role', PJV_NOSTRTIUM_DEFAULT_USER_ROLE))) {
       wp_die('Invalid permissions');
     }
   }
@@ -195,4 +195,4 @@ class WP_Nostr {
   }
 }
 
-WP_Nostr::get_instance();
+Nostrtium::get_instance();

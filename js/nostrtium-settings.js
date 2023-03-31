@@ -5,7 +5,7 @@
     function buildRelayTable() {
       var tbody = $("#relay-tbody");
       tbody.html("");
-      $.each(wpnostr.relays, function (i, relay) {
+      $.each(nostrtium.relays, function (i, relay) {
         var tr = $("<tr>");
         $("<td>")
           .html('<i class="broadcast tower icon violet"></i>')
@@ -24,11 +24,11 @@
 
     function saveRelays() {
       var data = {
-        action: "pjv_wpn_save_relays",
-        relays: wpnostr.relays,
-        security: wpnostr.security,
+        action: "pjv_nostrtium_save_relays",
+        relays: nostrtium.relays,
+        security: nostrtium.security,
       };
-      $.post(wpnostr.ajaxurl, data, function (response) {
+      $.post(nostrtium.ajaxurl, data, function (response) {
         if (response.success) {
           $("body").toast({
             class: "success",
@@ -43,7 +43,7 @@
     $(document).on("click", ".delete-relay", function (e) {
       console.log(e);
       var index = e.target.getAttribute("index");
-      wpnostr.relays.splice(index, 1);
+      nostrtium.relays.splice(index, 1);
       saveRelays();
       buildRelayTable();
     });
@@ -59,7 +59,7 @@
       var relay = $("#new-relay-url").val();
       var tbody = $("#relay-tbody");
       var tr = $("<tr>");
-      var i = wpnostr.relays.length;
+      var i = nostrtium.relays.length;
 
       $("<td>")
         .html('<i class="broadcast tower icon violet"></i>')
@@ -72,19 +72,19 @@
         .appendTo(tr);
       tbody.append(tr);
       $("#new-relay-url").val("");
-      wpnostr.relays.push(relay);
+      nostrtium.relays.push(relay);
       saveRelays();
     });
 
     $("#save-private-key").click(function () {
-      if (wpnostr.private_key_set) return;
+      if (nostrtium.private_key_set) return;
       $(this).addClass("loading");
       var data = {
-        action: "pjv_wpn_save_private_key",
+        action: "pjv_nostrtium_save_private_key",
         nsec: $("#private-key").val(),
-        security: wpnostr.security,
+        security: nostrtium.security,
       };
-      $.post(wpnostr.ajaxurl, data, function (response) {
+      $.post(nostrtium.ajaxurl, data, function (response) {
         if (response.success) {
           $("body").toast({
             class: "success",
@@ -98,7 +98,7 @@
             .children()
             .removeClass("save")
             .addClass("check");
-          wpnostr.private_key_set = "1";
+          nostrtium.private_key_set = "1";
         } else {
           alert(response.data);
           $("#private-key").val("");
@@ -108,9 +108,9 @@
     });
 
     $("#private-key").on("input", function () {
-      if (wpnostr.private_key_set) {
+      if (nostrtium.private_key_set) {
         $(this).val("");
-        wpnostr.private_key_set = "";
+        nostrtium.private_key_set = "";
         $("#save-private-key").removeClass("green").addClass("violet");
         $("#save-private-key").children().removeClass("check").addClass("save");
       }

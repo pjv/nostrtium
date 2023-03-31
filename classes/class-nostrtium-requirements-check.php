@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-class WP_Nostr_Requirements_Check {
+class Nostrtium_Requirements_Check {
   // args
   private $title = '';
   private $php = '8.1';

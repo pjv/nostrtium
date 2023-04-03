@@ -1,11 +1,13 @@
 # nostrtium
 _Post to Nostr from WordPress_
 
+![](.wordpress-org/icon-256x256.png)
+
 This is a beta quality first-pass at a plugin that lets you post from WordPress to Nostr.
 
-This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays.
+This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays.You can change the content in the metabox as you like. 
 
-You can change the content in the metabox as you like. If you have a good excerpt and post it as-is, it creates a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card with featured image and etc. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate Nostr profiles for individual WP users; support for full, long-form content from WP to Nostr; and more.
+If you have a good excerpt and post it as-is, it will create a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card / link preview with the post's featured image and the excerpt. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate Nostr profiles for individual WP users; support for full, long-form content from WP to Nostr; and more.
 
 Please test and report issues here.
 

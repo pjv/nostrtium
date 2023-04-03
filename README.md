@@ -1,7 +1,7 @@
 # nostrtium
 _Post to Nostr from WordPress_
 
-![](.wordpress-org/icon-256x256.png)
+![](.wordpress-org/banner-1544x500.png)
 
 This is a beta quality first-pass at a plugin that lets you post from WordPress to Nostr.
 

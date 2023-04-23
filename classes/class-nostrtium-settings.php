@@ -68,7 +68,7 @@ class Nostrtium_Settings {
     check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
-    $nsec = isset($_POST['nsec']) ? $_POST['nsec'] : null;
+    $nsec = sanitize_text_field($_POST['nsec']) ?? null;
     if ($nsec == null || (!str_starts_with($_POST['nsec'], 'nsec1'))) {
       wp_send_json_error('You must enter a private key in nsec format.');
     }
@@ -117,9 +117,15 @@ class Nostrtium_Settings {
     check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
-    $relays = isset($_POST['relays']) ? $_POST['relays'] : null;
-    if ($relays == null) {
+    $r = $_POST['relays'] ?? null;
+    if ($r == null) {
       wp_send_json_error('You must send a list of relays.');
+    }
+
+    // sanitize array of relays
+    $relays = [];
+    foreach ($r as $relay) {
+      $relays[] = sanitize_url($relay, ['ws', 'wss']);
     }
 
     $this->set_relays($relays);

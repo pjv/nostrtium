@@ -42,11 +42,11 @@ class Nostrtium {
   public function enqueue($page) {
     global $pagenow;
     if (($pagenow == 'post.php') && (get_post_type() == 'post')) {
-      wp_enqueue_style('modal-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css', [], PJV_NOSTRTIUM_VERSION);
-      wp_enqueue_script('modal-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', ['jquery'], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_style('modal-css', plugins_url('../css/jquery.modal.min.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_script('modal-js', plugins_url('../js/jquery.modal.min.js', __FILE__), ['jquery'], PJV_NOSTRTIUM_VERSION);
       wp_enqueue_style('nostrtium-metabox.css', plugins_url('../css/nostrtium-metabox.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
       wp_register_script('nostrtium-metabox.js', plugins_url('../js/nostrtium-metabox.js', __FILE__), [], PJV_NOSTRTIUM_VERSION);
-      $post_ID = isset($_GET['post']) ? $_GET['post'] : 0;
+      $post_ID = intval($_GET['post']) ?? 0;
       $post = get_post($post_ID);
       $local_arr = [
         'ajaxurl'        => admin_url('admin-ajax.php'),
@@ -58,8 +58,8 @@ class Nostrtium {
       wp_enqueue_script('nostrtium-metabox.js');
     }
     if (($pagenow == 'options-general.php' && $_GET['page'] == 'nostrtium')) {
-      wp_enqueue_style('fomantic-css', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css', [], PJV_NOSTRTIUM_VERSION);
-      wp_enqueue_script('fomantic-js', 'https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js', ['jquery'], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_style('fomantic-css', plugins_url('../css/semantic.min.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
+      wp_enqueue_script('fomantic-js', plugins_url('../js/semantic.min.js', __FILE__), ['jquery'], PJV_NOSTRTIUM_VERSION);
       wp_enqueue_style('nostrtium-settings.css', plugins_url('../css/nostrtium-settings.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
       wp_register_script('nostrtium-settings.js', plugins_url('../js/nostrtium-settings.js', __FILE__), [], PJV_NOSTRTIUM_VERSION);
       if (get_option('nostrtium-enc-privkey')) {
@@ -89,7 +89,7 @@ class Nostrtium {
       wp_send_json_error('You have no relays defined to send to - visit Settings -> Nostrtium.');
     }
 
-    $note = isset($_POST['note']) ? $_POST['note'] : null;
+    $note = wp_kses_post($_POST['note']) ?? null;
     if ($note == null) {
       wp_send_json_error('Something went wrong; did not receive any note text.');
     }
@@ -101,7 +101,7 @@ class Nostrtium {
       "\\\\" => "\\",
     ]);
 
-    $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+    $post_id = intval($_POST['post_id']) ?? 0;
 
     $result = $this->send_note($note);
 
@@ -162,7 +162,7 @@ class Nostrtium {
 
     $sent = false;
     foreach ($this->settings->relays as $url) {
-      $log .= "Sending to $url | ";
+      $log .= "Sent to $url | ";
       $relay = new Relay($url, $eventMessage);
 
       try {

@@ -113,19 +113,17 @@ class Nostrtium_Settings {
     }
   }
 
+  private function sanitize_ws_url(string $url = null) {
+    return sanitize_url($url, ['ws', 'wss']);
+  }
+
   public function save_relays() {
     check_ajax_referer('nostrtium-ajax-nonce', 'security');
     $this->check_user();
 
-    $r = $_POST['relays'] ?? null;
-    if ($r == null) {
-      wp_send_json_error('You must send a list of relays.');
-    }
-
-    // sanitize array of relays
-    $relays = [];
-    foreach ($r as $relay) {
-      $relays[] = sanitize_url($relay, ['ws', 'wss']);
+    $relays = array_unique(array_map([$this, 'sanitize_ws_url'], $_POST['relays'])) ?? null;
+    if ($relays == null) {
+      wp_send_json_error('No relays have been defined.');
     }
 
     $this->set_relays($relays);

@@ -35,11 +35,9 @@ Some of the included libraries have relatively recent dependency requirements so
 ### User Role / Capability Filter
 You can create a filter snippet (in your theme's functions.php) to choose what user role or capability has access to Nostrtium functionality. The default is `edit_posts`. Here is a sample snippet that would change it so only adminstrators can see / use the plugin's functionality:
 
-````
-add_filter ('nostrtium_role', function($role){
-	return 'administrator';
-});
-````
+    add_filter ('nostrtium_role', function($role){
+	    return 'administrator';
+    });
 
 == Installation ==
 

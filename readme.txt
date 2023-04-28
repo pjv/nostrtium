@@ -5,7 +5,7 @@ Tags: social media, nostr
 Requires at least: 6.0
 Requires PHP: 8.1
 Tested up to: 6.2
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 License: Unlicense
 License URI: https://unlicense.org
 
@@ -62,5 +62,5 @@ The manual installation method involves downloading the plugin and then uploadin
 
 == Changelog ==
 
-= 0.6.0 =
+= 0.6.1 =
 * Initial public release

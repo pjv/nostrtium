@@ -21,6 +21,9 @@ You can change the content in the metabox as you like. If you have a good excerp
 
 [Note that the private key is stored encrypted in the WordPress database using libsodium cryptography.]
 
+### Support and Development
+Development is taking place on [github](https://github.com/pjv/nostrtium) and the best (fastest) way to get support is to raise an [issue](https://github.com/pjv/nostrtium/issues) or start a [discussion](https://github.com/pjv/nostrtium/discussions) there.
+
 ### Requirements
 Some of the included libraries have relatively recent dependency requirements so you will need the following in your WordPress platform:
 * PHP 8.1+

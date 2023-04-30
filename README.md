@@ -1,13 +1,13 @@
 # nostrtium
-_Post to Nostr from WordPress_
+_Post to nostr from WordPress_
 
 ![](.wordpress-org/banner-1544x500.png)
 
-This is a beta quality first-pass at a plugin that lets you post from WordPress to Nostr.
+This is a beta quality first-pass at a plugin that lets you post from WordPress to nostr.
 
 This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays. You can change the content in the metabox as you like. 
 
-If you have a good excerpt and post it as-is, it will create a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card / link preview with the post's featured image and the excerpt. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate Nostr profiles for individual WP users; support for full, long-form content from WP to Nostr; and more.
+If you have a good excerpt and post it as-is, it will create a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card / link preview with the post's featured image and the excerpt. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate nostr profiles for individual WP users; support for full, long-form content from WP to nostr; and more.
 
 Please test and report issues here.
 
@@ -52,7 +52,7 @@ bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
 * Separate private keys for individual WP users
 * Generate keys on the settings page and/or user profile page
 * NIP-07 signing
-* Long-form Nostr posting
-* Automated Nostr posting on WP publish
+* Long-form nostr posting
+* Automated nostr posting on WP publish
 * Relay sets
-* Nostr profile editing
+* nostr profile editing

@@ -126,17 +126,11 @@ class Nostrtium {
     if (!get_option('nostrtium-relays')) {
       $relays = [
         'wss://relay.damus.io',
-        'wss://nostr-pub.wellorder.net',
-        'wss://relay.wellorder.net',
         'wss://nos.lol',
         'wss://nostr.mom',
         'wss://no.str.cr',
         'wss://relay.snort.social',
-        'wss://nostr.milou.lol',
         'wss://nostr.bitcoiner.social',
-        'wss://relay.nostrid.com',
-        'wss://relay.nostrcheck.me',
-        'wss://relayable.org',
       ];
       update_option('nostrtium-relays', $relays);
     }

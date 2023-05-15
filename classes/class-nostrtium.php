@@ -31,7 +31,14 @@ class Nostrtium {
     require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-settings.php';
     $this->version  = PJV_NOSTRTIUM_VERSION;
     $this->settings = Nostrtium_Settings::get_instance();
-    $this->keyfile  = PJV_NOSTRTIUM_DIR . 'keyfile.key';
+    $this->keyfile  = PJV_NOSTRTIUM_STORAGE . 'keyfile.key';
+
+    // fix for early plugin versions - will be removed after v. 1.0
+    if (file_exists(PJV_NOSTRTIUM_DIR . 'keyfile.key')) {
+      if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
+      rename(PJV_NOSTRTIUM_DIR . 'keyfile.key', $this->keyfile);
+    }
+    // end fix
 
     if (is_admin()) {
       add_action('admin_enqueue_scripts', [$this, 'enqueue']);
@@ -116,6 +123,9 @@ class Nostrtium {
   }
 
   public function activate() {
+    # set up storage directory
+    if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
+    
     # set up encryption key
     if (!file_exists($this->keyfile)) {
       $encKey = KeyFactory::generateEncryptionKey();

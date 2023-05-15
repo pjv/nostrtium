@@ -40,7 +40,7 @@ class Nostrtium_Settings {
     }
     $this->relays = $this->get_relays();
     $this->encrypted_privkey = $this->get_encrypted_key();
-    $this->keyfile = PJV_NOSTRTIUM_DIR . 'keyfile.key';
+    $this->keyfile = PJV_NOSTRTIUM_STORAGE . 'keyfile.key';
   }
 
   public function setup_menu() {

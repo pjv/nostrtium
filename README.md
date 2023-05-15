@@ -18,7 +18,7 @@ Some of the included libraries have relatively recent dependency requirements so
 * PHP 8.1+
 * php-gmp module must be installed ([Installation on Ubuntu](https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/))
 * WordPress 6.0+
-* Writable installation directory (on activation, the plugin writes a cryptographic keyfile to its own install directory)
+* Writable uploads directory (on activation, the plugin writes a cryptographic keyfile to a storage directory)
 
 ## Installation
 If you want to use the plugin, download the latest zip release from the [releases page](https://github.com/pjv/nostrtium/releases).

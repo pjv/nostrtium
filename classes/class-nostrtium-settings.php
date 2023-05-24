@@ -16,6 +16,7 @@ class Nostrtium_Settings {
   public $relays = [];
   public $encrypted_privkey = '';
   public $keyfile = '';
+  public $auto_publish_settings = null;
 
   // singleton
   public static function get_instance() {
@@ -33,14 +34,39 @@ class Nostrtium_Settings {
       add_action('admin_menu', [$this, 'setup_menu']);
       add_action('wp_ajax_pjv_nostrtium_save_relays', [$this, 'save_relays']);
       add_action('wp_ajax_pjv_nostrtium_save_private_key', [$this, 'save_private_key']);
+      add_action('wp_ajax_pjv_nostrtium_save_auto_publish', [$this, 'save_auto_publish_settings']);
 
       if ($pagenow == 'plugins.php') {
         add_filter("plugin_action_links_$this->slug/$this->slug.php", [$this, 'settings_link']);
       }
     }
-    $this->relays = $this->get_relays();
-    $this->encrypted_privkey = $this->get_encrypted_key();
-    $this->keyfile = PJV_NOSTRTIUM_STORAGE . 'keyfile.key';
+    $this->relays                  = $this->get_relays();
+    $this->encrypted_privkey       = $this->get_encrypted_key();
+    $this->keyfile                 = PJV_NOSTRTIUM_STORAGE . 'keyfile.key';
+    $this->auto_publish_settings   = $this->get_auto_publish_settings();
+  }
+
+  public function get_auto_publish_settings() {
+    return get_option('nostrtium-auto-publish');
+  }
+  public function set_auto_publish_settings(array $ap) {
+    update_option('nostrtium-auto-publish', $ap);
+  }
+  public function save_auto_publish_settings() {
+    check_ajax_referer('nostrtium-ajax-nonce', 'security');
+    $this->check_user();
+
+    $ap = $_POST['apSettings'] ?? null;
+    if ($ap == null) {
+      wp_send_json_error('No auto publish settings received.');
+    }
+
+    foreach ($ap as $key => &$value) {
+      $value = rest_sanitize_boolean($value);
+    }
+
+    $this->set_auto_publish_settings($ap);
+    wp_send_json_success();
   }
 
   public function setup_menu() {
@@ -61,6 +87,10 @@ class Nostrtium_Settings {
   }
 
   public function render_settings_page() {
+    $ap_checked = $this->auto_publish_settings['autoPublish'] ? "checked" : "";
+    $excerpt_checked = $this->auto_publish_settings['apExcerpt'] ? "checked" : "";
+    $permalink_checked = $this->auto_publish_settings['apPermalink'] ? "checked" : "";
+    $whole_post_checked = $this->auto_publish_settings['apWholePost'] ? "checked" : "";
     include PJV_NOSTRTIUM_DIR . 'views/settings-page.php';
   }
 

@@ -2,6 +2,8 @@
   "use strict";
   // execute when the DOM is ready
   $(document).ready(function () {
+    var loading = true;
+
     function buildRelayTable() {
       var tbody = $("#relay-tbody");
       tbody.html("");
@@ -38,6 +40,58 @@
           alert(response.data);
         }
       });
+    }
+
+    function saveAutoPublishSettings() {
+      if (loading) {
+        return;
+      }
+      var apSettings = {
+        autoPublish: $("#auto-publish").checkbox("is checked"),
+        apExcerpt: $("#post-excerpt").checkbox("is checked"),
+        apPermalink: $("#permalink").checkbox("is checked"),
+        apWholePost: $("#whole-post").checkbox("is checked"),
+      };
+      var data = {
+        action: "pjv_nostrtium_save_auto_publish",
+        apSettings: apSettings,
+        security: nostrtium.security,
+      };
+      $.post(nostrtium.ajaxurl, data, function (response) {
+        if (response.success) {
+          $("body").toast({
+            class: "success",
+            message: `Settings updated.`,
+          });
+        } else {
+          alert(response.data);
+        }
+      });
+    }
+
+    function setupCheckboxes() {
+      if (nostrtium.ap_settings.autoPublish) {
+        $("#auto-publish").checkbox("check");
+      } else {
+        $("#auto-publish").checkbox("uncheck");
+      }
+
+      if (nostrtium.ap_settings.apExcerpt) {
+        $("#post-excerpt").checkbox("check");
+      } else {
+        $("#post-excerpt").checkbox("uncheck");
+      }
+
+      if (nostrtium.ap_settings.apPermalink) {
+        $("#permalink").checkbox("check");
+      } else {
+        $("#permalink").checkbox("uncheck");
+      }
+      if (nostrtium.ap_settings.apWholePost) {
+        $("#whole_post").checkbox("check");
+      } else {
+        $("#whole_post").checkbox("uncheck");
+      }
     }
 
     $(document).on("click", ".delete-relay", function (e) {
@@ -116,6 +170,26 @@
       }
     });
 
+    $("#auto-publish").checkbox({
+      onChecked: function () {
+        $("#auto-publish-fields").removeClass("disabled");
+      },
+      onUnchecked: function () {
+        $("#auto-publish-fields").addClass("disabled");
+      },
+      onChange: function () {
+        saveAutoPublishSettings();
+      },
+    });
+
+    $(".ui.checkbox.ap").checkbox({
+      onChange: function () {
+        saveAutoPublishSettings();
+      },
+    });
+
     buildRelayTable();
+    setupCheckboxes();
+    loading = false;
   });
 })(jQuery, window, document);

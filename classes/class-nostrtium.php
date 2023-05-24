@@ -44,6 +44,8 @@ class Nostrtium {
       add_action('admin_enqueue_scripts', [$this, 'enqueue']);
       add_action('wp_ajax_pjv_nostrtium_post_note', [$this, 'post_note']);
     }
+
+    add_action('publish_post', [$this, 'maybe_publish_post_to_nostr'], 10, 2);
   }
 
   public function enqueue($page) {
@@ -79,9 +81,36 @@ class Nostrtium {
         'security'        => wp_create_nonce('nostrtium-ajax-nonce'),
         'relays'          => $this->settings->relays,
         'private_key_set' => $private_key_set,
+        'ap_settings'     => $this->settings->auto_publish_settings,
       ];
       wp_localize_script('nostrtium-settings.js', 'nostrtium', $local_arr);
       wp_enqueue_script('nostrtium-settings.js');
+    }
+  }
+
+  public function maybe_publish_post_to_nostr($post_id, $post) {
+    if (!$post->_nostrtium_posted && $this->settings->auto_publish_settings['autoPublish']) {
+      $note = "";
+
+      if ($this->settings->auto_publish_settings['apExcerpt']) {
+        $note .= get_the_excerpt($post->ID) . "\n\n";
+      }
+
+      if ($this->settings->auto_publish_settings['apPermalink']) {
+        $note .= get_permalink($post->ID);
+      }
+
+      if ($this->settings->auto_publish_settings['apWholePost']) {
+        # code...
+      }
+
+      $result = $this->send_note($note);
+
+      if ($result->sent) {
+        if ($post_id > 0) {
+          update_post_meta($post_id, '_nostrtium_posted', true);
+        }
+      }
     }
   }
 
@@ -125,7 +154,7 @@ class Nostrtium {
   public function activate() {
     # set up storage directory
     if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
-    
+
     # set up encryption key
     if (!file_exists($this->keyfile)) {
       $encKey = KeyFactory::generateEncryptionKey();
@@ -184,9 +213,9 @@ class Nostrtium {
       }
     }
 
-    $r       = new stdClass;
+    $r = new stdClass;
     $r->sent = $sent;
-    $r->log  = $log;
+    $r->log = $log;
 
     return $r;
   }

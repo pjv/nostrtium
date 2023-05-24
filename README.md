@@ -5,7 +5,7 @@ _Post to nostr from WordPress_
 
 This is a beta quality first-pass at a plugin that lets you post from WordPress to nostr.
 
-This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays. You can change the content in the metabox as you like. 
+This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays. You can change the content in the metabox as you like. On the settings page you can also set up automatic posting of excerpt, permalink, or both on publication of new WordPress posts.
 
 If you have a good excerpt and post it as-is, it will create a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card / link preview with the post's featured image and the excerpt. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate nostr profiles for individual WP users; support for full, long-form content from WP to nostr; and more.
 
@@ -53,6 +53,5 @@ bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
 * Generate keys on the settings page and/or user profile page
 * NIP-07 signing
 * Long-form nostr posting
-* Automated nostr posting on WP publish
 * Relay sets
 * nostr profile editing

@@ -1,15 +1,14 @@
 # deploy to wordpress and also create a release on github
-name: Deploy to WordPress.org
+name: Deploy to Github (not to WordPress)
 on:
   push:
     tags:
-    - 'v*'
-    - '!v*-alpha*'
-    - '!v*-beta*'
-    - '!v*-rc*'
+    - 'v*-alpha*'
+    - 'v*-beta*'
+    - 'v*-rc*'
 jobs:
   tag:
-    name: New release
+    name: New tag
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -22,15 +21,13 @@ jobs:
       uses: 10up/action-wordpress-plugin-deploy@stable
       with:
         generate-zip: true
+        dry-run: true
       env:
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-    - name: Upload release asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create GH Pre-release
+      uses: ncipollo/release-action@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ steps.deploy.outputs.zip-path }}
-        asset_name: ${{ github.event.repository.name }}.zip
-        asset_content_type: application/zip
+        artifacts: ${{ steps.deploy.outputs.zip-path }}
+        artifactContentType: application/zip
+        prerelease: true

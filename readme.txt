@@ -4,7 +4,7 @@ Donate link: https://github.com/pjv/nostrtium
 Tags: social media, nostr
 Requires at least: 6.0
 Requires PHP: 8.1
-Tested up to: 6.2
+Tested up to: 6.2.2
 Stable tag: 0.7.0
 License: Unlicense
 License URI: https://unlicense.org
@@ -65,6 +65,7 @@ The manual installation method involves downloading the plugin and then uploadin
 
 = 0.7.0 =
 * Allow auto posting excerpt, permalink, or both on publication of wp post.
+* NOTE: This update requires you to re-enter your private key on the nostrtium settings page. This is a one-time occurrence.
 
 = 0.6.1 =
 * Initial public release

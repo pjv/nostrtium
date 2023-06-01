@@ -78,7 +78,7 @@ class Nostrtium_Requirements_Check {
     }
   public function dir_writeable_notice() {
     echo '<div class="error">';
-    echo '<p>The &#8220;' . esc_html($this->title) . '&#8221; plugin cannot run without its own directory being writeable.</p>';
+    echo '<p>The &#8220;' . esc_html($this->title) . '&#8221; plugin cannot run without the wp-content/uploads directory being writeable.</p>';
     echo '</div>';
   }
 }

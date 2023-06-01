@@ -13,9 +13,8 @@ use swentel\nostr\Sign\Sign;
 
 class Nostrtium {
   private static $instance = null;
-  public  $version         = '';
   private $settings        = null;
-  public  $keyfile         = '';
+  public $keyfile          = '';
 
   // singleton
   public static function get_instance() {
@@ -29,16 +28,8 @@ class Nostrtium {
   private function __construct() {
     require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-metabox.php';
     require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-settings.php';
-    $this->version  = PJV_NOSTRTIUM_VERSION;
     $this->settings = Nostrtium_Settings::get_instance();
     $this->keyfile  = PJV_NOSTRTIUM_STORAGE . 'keyfile.key';
-
-    // fix for early plugin versions - will be removed after v. 1.0
-    if (file_exists(PJV_NOSTRTIUM_DIR . 'keyfile.key')) {
-      if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
-      rename(PJV_NOSTRTIUM_DIR . 'keyfile.key', $this->keyfile);
-    }
-    // end fix
 
     if (is_admin()) {
       add_action('admin_enqueue_scripts', [$this, 'enqueue']);
@@ -46,6 +37,7 @@ class Nostrtium {
     }
 
     add_action('publish_post', [$this, 'maybe_publish_post_to_nostr'], 10, 2);
+    add_action('plugins_loaded', [$this, 'check_version']);
   }
 
   public function enqueue($page) {
@@ -151,6 +143,12 @@ class Nostrtium {
     }
   }
 
+  public function check_version() {
+    if (PJV_NOSTRTIUM_VERSION !== get_option('nostrtium-version')) {
+      $this->activate();
+    }
+  }
+
   public function activate() {
     # set up storage directory
     if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
@@ -173,6 +171,15 @@ class Nostrtium {
       ];
       update_option('nostrtium-relays', $relays);
     }
+
+    $db_version = get_option('nostrtium-version');
+    if (!$db_version || version_compare($db_version, '0.6.1', '<=')) {
+      // wipe out the stored nsec1
+      update_option('nostrtium-enc-privkey', '');
+      $this->settings->encrypted_privkey = '';
+    }
+
+    update_option('nostrtium-version', PJV_NOSTRTIUM_VERSION);
   }
 
   public static function deactivate() {

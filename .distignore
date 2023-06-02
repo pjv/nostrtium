@@ -33,6 +33,7 @@ README.md
 wp-cli.local.yml
 tests
 node_modules
+update-notes
 *.sql
 *.tar.gz
 *.zip

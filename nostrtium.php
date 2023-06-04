@@ -31,7 +31,7 @@ $pjv_nostrtium_requirements_check = new Nostrtium_Requirements_Check([
   'title' => 'Nostrtium',
   'php'   => '8.1',
   'wp'    => '6.0',
-  'dir'   => PJV_NOSTRTIUM_STORAGE,
+  'dir'   => wp_upload_dir()['basedir'],
   'file'  => __FILE__,
 ]);
 if ($pjv_nostrtium_requirements_check->passes()) {

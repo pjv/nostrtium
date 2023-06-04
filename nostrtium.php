@@ -35,7 +35,7 @@ $pjv_nostrtium_requirements_check = new Nostrtium_Requirements_Check([
   'file'  => __FILE__,
 ]);
 if ($pjv_nostrtium_requirements_check->passes()) {
-  require_once PJV_NOSTRTIUM_DIR . '/vendor/autoload.php';
+  require_once PJV_NOSTRTIUM_DIR . 'vendor/autoload.php';
   require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium.php';
   $pjv_nostrtium_plugin = Nostrtium::get_instance();
 

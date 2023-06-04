@@ -24,7 +24,7 @@ if (!defined('WPINC')) {
 define('PJV_NOSTRTIUM_VERSION', '0.7.0');
 define('PJV_NOSTRTIUM_DIR', plugin_dir_path(__FILE__));
 define('PJV_NOSTRTIUM_DEFAULT_USER_ROLE', 'edit_posts');
-define('PJV_NOSTRTIUM_STORAGE', wp_upload_dir()['basedir'] . '/nostrtium_' . base64_encode(LOGGED_IN_SALT) . '/');
+define('PJV_NOSTRTIUM_STORAGE', wp_upload_dir()['basedir'] . '/nostrtium_' . md5(LOGGED_IN_SALT) . '/');
 
 require_once PJV_NOSTRTIUM_DIR . 'classes/class-nostrtium-requirements-check.php';
 $pjv_nostrtium_requirements_check = new Nostrtium_Requirements_Check([

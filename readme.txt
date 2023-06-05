@@ -15,9 +15,11 @@ Post to nostr from WordPress.
 
 Nostrtium lets you post from WordPress to [nostr](https://nostr.how/en/what-is-nostr).
 
-This initial version just implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays.
+This version implements basic nostr settings (private key, relays) and provides a metabox in the WordPress Post editing page which is pre-populated with the Post Excerpt and a link to the Post and lets you post the content of that metabox to your configured relays.
 
 You can change the content in the metabox as you like. If you have a good excerpt and post it as-is, it creates a twitter-style "announcement" note on nostr. A lot of nostr clients will render the link to the WordPress post as a nice-looking summary card with featured image and etc. This functionality is probably enough for many use-cases but I have plans to add more functionality to this plugin in the future, including generation of keys; support for NIP-07 browser extensions; separate nostr profiles for individual WP users; support for full, long-form content from WP to nostr; and more.
+
+There are also options (on the settings page) to auto-post to nostr the excerpt, the permalink, or both upon WordPress post publication. 
 
 [Note that the private key is stored encrypted in the WordPress database using libsodium cryptography.]
 
@@ -29,7 +31,7 @@ Some of the included libraries have relatively recent dependency requirements so
 * PHP 8.1+
 * php-gmp module must be installed ([Installation on Ubuntu](https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/))
 * WordPress 6.0+
-* Writable installation directory (on activation, the plugin writes a cryptographic keyfile to its own install directory)
+* Writable uploads directory (on activation, the plugin writes a cryptographic keyfile to a storage directory)
 
 ### How to Use
 1. After installing and activating the plugin, go into Settings -> Nostrtium and copy/paste the private key (nsec1...) that you want to post from and tweak the relays to your liking.
@@ -58,14 +60,14 @@ The manual installation method involves downloading the plugin and then uploadin
 
 == Screenshots ==
 
-1. Nostr relay management
-2. Post to Nostr metabox
+1. Nostrtium settings
+2. Post to nostr metabox
 
 == Changelog ==
 
 = 0.7.0 =
-* Allow auto posting excerpt, permalink, or both on publication of wp post.
-* NOTE: This update requires you to re-enter your private key on the nostrtium settings page. This is a one-time occurrence.
+* Allow auto posting excerpt, permalink, or both on publication of WordPress post.
+* NOTE: If you have installed a prior version, this update requires you to re-enter your private key on the Nostrtium settings page. This is a one-time occurrence.
 
 = 0.6.1 =
 * Initial public release

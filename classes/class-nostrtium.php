@@ -149,16 +149,24 @@ class Nostrtium {
     }
   }
 
-  public function activate() {
+  private function set_keyfile() {
     # set up storage directory
     if (!file_exists(PJV_NOSTRTIUM_STORAGE)) wp_mkdir_p(PJV_NOSTRTIUM_STORAGE);
 
     # set up encryption key
     if (!file_exists($this->keyfile)) {
+      // wipe out any previously stored private key
+      update_option('nostrtium-enc-privkey', '');
+      $this->settings->encrypted_privkey = '';
+      // generate and save keyfile
       $encKey = KeyFactory::generateEncryptionKey();
       KeyFactory::save($encKey, $this->keyfile);
     }
+  }
 
+  public function activate() {
+    $this->set_keyfile();
+    
     // initial seed relays
     if (!get_option('nostrtium-relays')) {
       $relays = [
@@ -171,14 +179,8 @@ class Nostrtium {
       ];
       update_option('nostrtium-relays', $relays);
     }
-
-    $db_version = get_option('nostrtium-version');
-    if (!$db_version || version_compare($db_version, '0.6.1', '<=')) {
-      // wipe out the stored nsec1
-      update_option('nostrtium-enc-privkey', '');
-      $this->settings->encrypted_privkey = '';
-    }
-
+    
+    // save new plugin version to db
     update_option('nostrtium-version', PJV_NOSTRTIUM_VERSION);
   }
 

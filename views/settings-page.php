@@ -62,7 +62,7 @@
             <div class="inline field">
               <div class="ui toggle checkbox <?php echo $ap_checked; ?>" id="auto-publish">
                 <input type="checkbox" name="auto-publish">
-                <label>Auto Publish</label>
+                <label>Auto Post</label>
               </div>
               <div id="auto-publish-fields" class="grouped disabled fields" style="margin-left:20px">
                 <div class="inline field">

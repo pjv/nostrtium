@@ -51,6 +51,7 @@ class Nostrtium_Settings {
   }
   public function set_auto_publish_settings(array $ap) {
     update_option('nostrtium-auto-publish', $ap);
+    $this->auto_publish_settings = $ap;
   }
   public function save_auto_publish_settings() {
     check_ajax_referer('nostrtium-ajax-nonce', 'security');

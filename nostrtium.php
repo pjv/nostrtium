@@ -8,7 +8,7 @@
  * Author URI:       https://github.com/pjv
  * Text Domain:      nostrtium
  * Domain Path:      /languages
- * Version:          0.7.0
+ * Version:          0.7.1
  * Requires at least 6.0
  * Requires PHP      8.1
  * License           Unlicense
@@ -21,7 +21,7 @@ if (!defined('WPINC')) {
   exit;
 }
 
-define('PJV_NOSTRTIUM_VERSION', '0.7.0');
+define('PJV_NOSTRTIUM_VERSION', '0.7.1');
 define('PJV_NOSTRTIUM_DIR', plugin_dir_path(__FILE__));
 define('PJV_NOSTRTIUM_DEFAULT_USER_ROLE', 'edit_posts');
 define('PJV_NOSTRTIUM_STORAGE', wp_upload_dir()['basedir'] . '/nostrtium_' . md5(LOGGED_IN_SALT) . '/');

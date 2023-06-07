@@ -65,6 +65,11 @@ The manual installation method involves downloading the plugin and then uploadin
 
 == Changelog ==
 
+= 0.7.1 =
+* Auto-post only on first publication - not updates of old posts.
+* Auto post only of type 'post' (currently not pages or custom post types).
+* Fix not saving auto publish settings to running settings instance.
+
 = 0.7.0 =
 * Allow auto posting excerpt, permalink, or both on publication of WordPress post.
 * NOTE: If you have installed a prior version, this update requires you to re-enter your private key on the Nostrtium settings page. This is a one-time occurrence.

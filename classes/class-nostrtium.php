@@ -36,7 +36,7 @@ class Nostrtium {
       add_action('wp_ajax_pjv_nostrtium_post_note', [$this, 'post_note']);
     }
 
-    add_action('publish_post', [$this, 'maybe_publish_post_to_nostr'], 10, 2);
+    add_action('transition_post_status', [$this, 'maybe_publish_post_to_nostr'], 10, 3);
     add_action('plugins_loaded', [$this, 'check_version']);
   }
 
@@ -80,7 +80,11 @@ class Nostrtium {
     }
   }
 
-  public function maybe_publish_post_to_nostr($post_id, $post) {
+  public function maybe_publish_post_to_nostr($new_status, $old_status, $post) {
+    // only post on initial publication, not on updates
+    // no revisions, currently only posts (not pages, not custom types)
+    if (($new_status != "publish") || ($post->post_type != "post") || ($old_status == "publish")) return;
+
     if (!$post->_nostrtium_posted && $this->settings->auto_publish_settings['autoPublish']) {
       $note = "";
 

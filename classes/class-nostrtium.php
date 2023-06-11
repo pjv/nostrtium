@@ -58,7 +58,7 @@ class Nostrtium {
       wp_localize_script('nostrtium-metabox.js', 'nostrtium', $local_arr);
       wp_enqueue_script('nostrtium-metabox.js');
     }
-    if (($pagenow == 'options-general.php' && $_GET['page'] == 'nostrtium')) {
+    if (($pagenow == 'options-general.php' && isset($_GET['page']) && $_GET['page'] == 'nostrtium')) {
       wp_enqueue_style('fomantic-css', plugins_url('../css/semantic.min.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
       wp_enqueue_script('fomantic-js', plugins_url('../js/semantic.min.js', __FILE__), ['jquery'], PJV_NOSTRTIUM_VERSION);
       wp_enqueue_style('nostrtium-settings.css', plugins_url('../css/nostrtium-settings.css', __FILE__), [], PJV_NOSTRTIUM_VERSION);
@@ -87,6 +87,7 @@ class Nostrtium {
 
     if (!$post->_nostrtium_posted && $this->settings->auto_publish_settings['autoPublish']) {
       $note = "";
+      $post_id = $post->ID;
 
       if ($this->settings->auto_publish_settings['apExcerpt']) {
         $note .= get_the_excerpt($post->ID) . "\n\n";

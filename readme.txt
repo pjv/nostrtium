@@ -5,7 +5,7 @@ Tags: social media, nostr
 Requires at least: 6.0
 Requires PHP: 8.1
 Tested up to: 6.2.2
-Stable tag: 0.7.0
+Stable tag: 0.7.2
 License: Unlicense
 License URI: https://unlicense.org
 
@@ -30,6 +30,7 @@ Development is taking place on [github](https://github.com/pjv/nostrtium) and th
 Some of the included libraries have relatively recent dependency requirements so you will need the following in your WordPress platform:
 * PHP 8.1+
 * php-gmp module must be installed ([Installation on Ubuntu](https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/))
+* php-bcmath module must be installed ([Installation on Ubuntu](https://www.itsolutionstuff.com/post/ubuntu-php-bcmath-extension-install-commands-exampleexample.html))
 * WordPress 6.0+
 * Writable uploads directory (on activation, the plugin writes a cryptographic keyfile to a storage directory)
 
@@ -64,6 +65,10 @@ The manual installation method involves downloading the plugin and then uploadin
 2. Post to nostr metabox
 
 == Changelog ==
+
+= 0.7.2 =
+* Update requirements text and requirements check
+* Fix missing variable declaration
 
 = 0.7.1 =
 * Auto-post only on first publication - not updates of old posts.

@@ -17,6 +17,7 @@ Please test and report issues here.
 Some of the included libraries have relatively recent dependency requirements so you will need the following in your WordPress platform:
 * PHP 8.1+
 * php-gmp module must be installed ([Installation on Ubuntu](https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/))
+* php-bcmath module must be installed ([Installation on Ubuntu](https://www.itsolutionstuff.com/post/ubuntu-php-bcmath-extension-install-commands-exampleexample.html))
 * WordPress 6.0+
 * Writable uploads directory (on activation, the plugin writes a cryptographic keyfile to a storage directory)
 

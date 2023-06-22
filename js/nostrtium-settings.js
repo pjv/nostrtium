@@ -104,7 +104,10 @@
 
     $("#new-relay-url").on("input", function () {
       var url = $(this).val();
-      if (url.length > 6 && url.substring(0, 6) == "wss://") {
+      if (
+        url.length > 6 &&
+        (url.substring(0, 6) == "wss://" || url.substring(0, 5) == "ws://")
+      ) {
         $("#add-relay").removeClass("disabled");
       }
     });

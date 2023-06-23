@@ -9,11 +9,15 @@
       tbody.html("");
       $.each(nostrtium.relays, function (i, relay) {
         var tr = $("<tr>");
-        $("<td>")
+        $('<td class="collapsing">')
           .html('<i class="broadcast tower icon violet"></i>')
           .appendTo(tr);
-        $("<td>").html(relay).appendTo(tr);
-        $("<td>")
+        $(
+          '<td style="overflow: hidden;text-overflow: ellipsis;width: 100%;max-width: 0;">'
+        )
+          .html(relay)
+          .appendTo(tr);
+        $('<td class="collapsing">')
           .html(
             '<i class="delete-relay minus circle icon red" index="' +
               i +
@@ -109,6 +113,8 @@
         (url.substring(0, 6) == "wss://" || url.substring(0, 5) == "ws://")
       ) {
         $("#add-relay").removeClass("disabled");
+      } else {
+        $("#add-relay").addClass("disabled");
       }
     });
 

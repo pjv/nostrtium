@@ -31,7 +31,7 @@
 
     <div class="row">
       <div class="six wide column">
-        <table class="ui collapsing celled striped table">
+        <table class="ui striped table">
           <thead>
             <tr>
               <th colspan="3">

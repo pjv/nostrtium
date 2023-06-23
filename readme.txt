@@ -5,7 +5,7 @@ Tags: social media, nostr
 Requires at least: 6.0
 Requires PHP: 8.1
 Tested up to: 6.2.2
-Stable tag: 0.7.3
+Stable tag: 0.7.4
 License: Unlicense
 License URI: https://unlicense.org
 
@@ -65,6 +65,9 @@ The manual installation method involves downloading the plugin and then uploadin
 2. Post to nostr metabox
 
 == Changelog ==
+
+= 0.7.4 =
+* Fix for very long relay URLs messing up table width on settings page
 
 = 0.7.3 =
 * Allow unenecrypted (ws://) relay URLs

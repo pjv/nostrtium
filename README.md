@@ -47,7 +47,7 @@ add_filter ('nostrtium_role', function($role){
 ## Support
 Want to support development of Nostrtium? Here's a bitcoin address to send to:
 
-bc1qlwrw8n9hf87zuvgq2xzucudcjv2mc4v7pg256g
+bc1q6w0jjc6wk6ts3zejt3zeu4sytnjwkrlm6ws5ej
 
 ## TODO
 * Separate private keys for individual WP users
